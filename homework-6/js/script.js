@@ -44,7 +44,9 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        let newFilm = input.value.trim();
+        let newFilm = input.value.trim(); 
+        // trim() метод строки для удаления пробелов спереди и сзади строки
+        // чтобы невозможно было отправить пустую строку
         let favMovie = checkbox.checked;
         
         if(newFilm) {
