@@ -11,9 +11,7 @@ P.S. Здесь есть несколько вариантов решения з
 3) При клике на мусорную корзину - элемент будет удаляться из списка (сложно)
 
 4) Если в форме стоит галочка "Сделать любимым" - в консоль вывести сообщение: 
-"Добавляем любимый фильм"
-
-5) Фильмы должны быть отсортированы по алфавиту */
+"Добавляем любимый фильм" */
 
 
 // Возьмите свой код из предыдущей практики
@@ -32,24 +30,47 @@ document.addEventListener('DOMContentLoaded', function () {
     let form = document.querySelector('form.add');
     let input = form.querySelector('.adding__input');
     let checkbox = form.querySelector('[type="checkbox"]');
-
-  
-    form.addEventListener('submit', function(e){
+    
+        const movieDB = {
+            movies: [
+                "Логан",
+                "Лига справедливости",
+                "Скотт Пилигрим против...",
+                "Аврора",
+                "Одержимость",
+            ]
+        };
+    
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
-
-        let newFilm = input.value;
+        
+        let newFilm = input.value.trim();
         let favMovie = checkbox.checked;
-
-        movieDB.movies.push(newFilm);
-        movieDB.movies.sort();
-
-       
+        
+        if(newFilm) {
+            if(newFilm.length > 21) {
+                newFilm = newFilm.substring(0,22) + '...';
+            }
+            movieDB.movies.push(newFilm);
+            sortArr(movieDB.movies); 
+            createNewMovie(movieDB.movies, movieList);
+        }
+        if(favMovie) {
+            console.log("Сделать любимым");
+        }
     });
 
+    let sortArr = (arr) => {
+        arr.sort();
+    };
+    
+    let changeContent = () => {
+        bg.style.background = 'url(img/bg.jpg) center top/cover no-repeat';
+        genreOfFilm.textContent = 'Драма';
+    };
 
-    bg.style.background = 'url(img/bg.jpg) center top/cover no-repeat';
+    changeContent();
 
-    genreOfFilm.textContent = 'Драма';
 
     let deleteAd = (advertisement) => {
         advertisement.forEach(item => {
@@ -58,16 +79,6 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     deleteAd(ads);
-
-    const movieDB = {
-        movies: [
-            "Логан",
-            "Лига справедливости",
-            "Скотт Пилигрим против...",
-            "Аврора",
-            "Одержимость",
-        ]
-    };
 
     
     function createNewMovie(films, parent) {
@@ -78,7 +89,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="delete"></div>
                 </li>`;
         });
-    }
 
+        document.querySelectorAll('.delete').forEach((btn,i) => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.remove();
+                movieDB.movies.splice(i, 1);
+                
+            });
+        }); 
+    }
     createNewMovie(movieDB.movies, movieList);
+    
 });
+
+
