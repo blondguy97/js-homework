@@ -7,8 +7,11 @@ let btn2 = document.querySelector('.anotherBtn');
 btn.addEventListener('click', function() {
     alert('click');
 });
-// Современный обработик событий
+// Современный обработчик событий
 
+window.addEventListener('keyup', function() {
+    btn.style.backgroundColor = 'red';
+});
 
 btn.addEventListener('mouseenter', function(event) {
     event.target.remove();
@@ -61,5 +64,5 @@ link.addEventListener('click', function(event) {
 
 btn2.addEventListener('click', delElem, {once: true});
 
-// Также чтоыб не городить конструкций с removeEventListener, мы можем передать в аргументы функции
-// мы можем передать в аргументы функции опцию once: true чтобы событие выполнялось только 1 раз
+// Также чтобы не городить конструкций с removeEventListener, 
+// мы можем передать в аргументы функции опцию once: true чтобы событие выполнялось только 1 раз (но если нужно чтобы событие исполнилось больше 1ого раза, придется городить)

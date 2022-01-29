@@ -3,11 +3,11 @@
 1) Реализовать функционал, что после заполнения формы и нажатия кнопки "Подтвердить" - 
 новый фильм добавляется в список. Страница не должна перезагружаться.
 Новый фильм должен добавляться в movieDB.movies.
-Для получения доступа к значению input - обращаемся к нему как D;
+Для получения доступа к значению input - обращаемся к нему как input.value;
 P.S. Здесь есть несколько вариантов решения задачи, принимается любой, но рабочий.
 
 2) Если название фильма больше, чем 21 символ - обрезать его и добавить три точки
-
+YYYY
 3) При клике на мусорную корзину - элемент будет удаляться из списка (сложно)
 
 4) Если в форме стоит галочка "Сделать любимым" - в консоль вывести сообщение: 
@@ -21,7 +21,10 @@ document.addEventListener('DOMContentLoaded', function () {
     // выполняться только при создании и загрузки всего 
     // DOM-дерева старницы, то есть всех тегов и прочего
 
-    'use strict';
+    'use strict'; 
+
+
+
 
     let ads = document.querySelectorAll('.promo__adv img');
     let genreOfFilm = document.querySelector('.promo__genre');
@@ -81,27 +84,31 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     deleteAd(ads);
-
+    
     
     function createNewMovie(films, parent) {
         parent.innerHTML = '';
         films.forEach(function (movie, i) {
             parent.innerHTML +=
-                `<li class="promo__interactive-item">${i + 1}. ${movie}
-                    <div class="delete"></div>
-                </li>`;
+            `<li class="promo__interactive-item">${i + 1}. ${movie}
+            <div class="delete"></div>
+            </li>`;
         });
-
-        document.querySelectorAll('.delete').forEach((btn,i) => {
-            btn.addEventListener('click', () => {
+        
+        let delElem = document.querySelectorAll('.delete');
+        delElem.forEach(function(btn, i) {
+            btn.addEventListener('click', function() {
                 btn.parentElement.remove();
                 movieDB.movies.splice(i, 1);
-                
             });
         }); 
     }
+
     createNewMovie(movieDB.movies, movieList);
     
 });
+
+
+
 
 
